@@ -1,5 +1,5 @@
 
-import express from 'express' //for es6 and above, if use this then change index.js to index.mjs or add  "type": "module" in package.json
+import express from 'express' //for es6 and above, if use this then change index.js to index.mjs or add  "type": "module" in 
 //const express = require('express')  // for older version
 const app = express()
 

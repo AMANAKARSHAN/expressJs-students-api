@@ -1,11 +1,23 @@
 import express from "express"; //for es6 and above, if use this then change index.js to index.mjs or add  "type": "module" in
+//const express = require('express')  // for older version
 import mongoose from "mongoose";
 import "./student/student.model.ts";
-//const express = require('express')  // for older version
-import { getData, saveData } from "./student/student.controller";
+import {
+  deleteData,
+  getData,
+  saveData,
+  updateData,
+} from "./student/student.controller";
 const router = express.Router();
 const app = express();
 
+// For parsing application/json
+app.use(express.json());
+
+// For parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+//connect with mongoDb
 const db =
   "mongodb+srv://express:express@cluster0.ombev6w.mongodb.net/?retryWrites=true&w=majority";
 
@@ -26,17 +38,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/", (req, res) => {
-  console.log(req.body, req.query);
-  res.send({
-    message: "Welcome to CRUD Application",
-    code: 200,
-    data: {},
-  });
-});
-
-router.get("/add", saveData);
+router.post("/add", saveData);
 router.get("/get", getData);
+router.put("/update", updateData);
+router.delete("/delete", deleteData);
 
 app.use(router);
 

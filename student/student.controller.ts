@@ -1,24 +1,48 @@
-import express from "express"; //for es6 and above, if use this then change index.js to index.mjs or add  "type": "module" in
-import mongoose from "mongoose";
 import "./student.model.ts";
-import { addData } from "./student.service";
-//const express = require('express')  // for older version
-// const app = express();
+import {
+  deleteDataService,
+  getDataService,
+  saveDataService,
+  updateDataService,
+} from "./student.service";
 
-export const getData = (req, res) => {
-  res.send("get data");
-};
-
-export const saveData = (req, res) => {
-  console.log(req.body);
-  const result = addData(req.body);
+export const getData = async (req, res) => {
+  const result = await getDataService();
   res.send({
-    message: "Data is Added",
-    status: res.status,
+    message: res.statusMessage,
+    status: res.statusCode,
     data: result,
   });
 };
 
+export const saveData = async (req, res) => {
+  const result = await saveDataService(req.body);
+  res.send({
+    message: res.statusMessage,
+    status: res.statusCode,
+    data: result,
+  });
+};
+
+export const updateData = async (req, res) => {
+  const result = await updateDataService(req.query.id, req.body);
+  res.send({
+    message: res.statusMessage,
+    status: res.statusCode,
+    data: result,
+  });
+};
+
+export const deleteData = async (req, res) => {
+  const result = await deleteDataService(req.query.id);
+  res.send({
+    message: res.statusMessage,
+    status: res.statusCode,
+    data: result,
+  });
+};
+
+// export for older version
 // module.exports = {
 //   getData,
 //   saveData,

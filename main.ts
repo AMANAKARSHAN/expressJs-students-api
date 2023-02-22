@@ -49,5 +49,5 @@ const server = app.listen(8000, () => {
   const port = server.address().port;
   const host = server.address().address;
   console.log(host);
-  console.log(`Hello app listening at ${host} ${port}`);
+  console.log(`Listening at ${host} ${port}`);
 });
